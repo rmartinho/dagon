@@ -62,7 +62,7 @@ namespace Dagon
             Checkpoint();
             foreach (Monster monster in State.Monsters)
             {
-                int steps = rng.Next(1, 5);
+                int steps = rng.Next(0, 3);
                 int direction = rng.Next(0, 4);
                 switch (direction)
                 {

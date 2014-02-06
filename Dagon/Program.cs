@@ -18,9 +18,11 @@ namespace Dagon
             {
                 game.Draw(window);
                 Thread.Sleep(100);
-                if (sw.ElapsedMilliseconds < lastTick + 1000)
+                if (sw.ElapsedMilliseconds > lastTick + 1000)
                 {
                     game.MoveMonsters();
+                    lastTick = sw.ElapsedMilliseconds;
+                    continue;
                 }
                 if (Console.KeyAvailable)
                 {
@@ -49,6 +51,7 @@ namespace Dagon
                         case '7':
                         case '8':
                         case '9':
+                            game.Rewind(k.KeyChar - '0');
                             break;
                     }
                 }

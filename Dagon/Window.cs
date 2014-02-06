@@ -8,6 +8,7 @@ namespace Dagon
         {
             get { return Console.WindowWidth; }
         }
+
         public int Height
         {
             get { return Console.WindowHeight; }
