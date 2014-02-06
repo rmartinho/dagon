@@ -123,7 +123,7 @@ namespace Dagon
 
         public void Draw(Window window)
         {
-            window.Set(Position, 'X');
+            window.Set(Position, 'X', ConsoleColor.Red);
         }
 
         public Monster Clone()

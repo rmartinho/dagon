@@ -1,4 +1,6 @@
-﻿namespace Dagon
+﻿using System;
+
+namespace Dagon
 {
     public sealed class Player : IDrawable
     {
@@ -7,7 +9,7 @@
 
         public void Draw(Window window)
         {
-            window.Set(Position, '@');
+            window.Set(Position, '@', ConsoleColor.Green);
         }
     }
 }

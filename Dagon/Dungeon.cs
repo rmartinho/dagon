@@ -1,4 +1,6 @@
-﻿namespace Dagon
+﻿using System;
+
+namespace Dagon
 {
     public enum TileKind
     {
@@ -66,7 +68,7 @@
             {
                 for (int j = 0; j < Height; j++)
                 {
-                    window.Set(new Point(i, j), _tiles[i, j]);
+                    window.Set(new Point(i, j), _tiles[i, j], ConsoleColor.White);
                 }
             }
         }

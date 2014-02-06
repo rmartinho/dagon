@@ -14,9 +14,10 @@ namespace Dagon
             get { return Console.WindowHeight; }
         }
 
-        public void Set(Point at, char c)
+        public void Set(Point at, char c, ConsoleColor colour)
         {
             if (at.X < 0 || at.X >= Width || at.Y < 0 || at.Y >= Height) return;
+            Console.ForegroundColor = colour;
             Console.SetCursorPosition(at.X, at.Y);
             Console.Write(c);
         }
