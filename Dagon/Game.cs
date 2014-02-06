@@ -13,7 +13,12 @@ namespace Dagon
             {
                 Dungeon = new Dungeon(window.Width, window.Height),
                 Monsters = Enumerable.Range(0, rng.Next(50))
-                    .Select(_=> new Monster{Position = new Point(rng.Next(1, window.Width - 1), rng.Next(1, window.Height - 1))})
+                    .Select(
+                        _ =>
+                            new Monster
+                            {
+                                Position = new Point(rng.Next(1, window.Width - 1), rng.Next(1, window.Height - 1))
+                            })
                     .ToList(),
             };
             State.Previous = State; // loopback
@@ -29,9 +34,10 @@ namespace Dagon
 
         public void Draw(Window window)
         {
+            //window.Clear();
             State.Dungeon.Draw(window);
             Player.Draw(window);
-            foreach (var monster in State.Monsters)
+            foreach (Monster monster in State.Monsters)
             {
                 monster.Draw(window);
             }
@@ -48,6 +54,38 @@ namespace Dagon
             {
                 State = State.Previous;
             }
+        }
+
+        public void MoveMonsters()
+        {
+            var rng = new Random();
+            Checkpoint();
+            foreach (Monster monster in State.Monsters)
+            {
+                int steps = rng.Next(1, 5);
+                int direction = rng.Next(0, 4);
+                switch (direction)
+                {
+                    case 0:
+                        monster.Position = new Point(monster.Position.X + steps, monster.Position.Y);
+                        break;
+                    case 1:
+                        monster.Position = new Point(monster.Position.X - steps, monster.Position.Y);
+                        break;
+                    case 2:
+                        monster.Position = new Point(monster.Position.X, monster.Position.Y + steps);
+                        break;
+                    case 3:
+                        monster.Position = new Point(monster.Position.X, monster.Position.Y - steps);
+                        break;
+                }
+                // TODO not fall into walls
+            }
+        }
+
+        public void MovePlayer(int dx, int dy)
+        {
+            Player.Position = new Point(Player.Position.X + dx, Player.Position.Y + dy);
         }
     }
 
