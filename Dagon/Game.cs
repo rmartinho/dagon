@@ -8,7 +8,7 @@ namespace Dagon
     {
         public Game(Window window)
         {
-            var rng = new Random(0);
+            var rng = new Random();
             State = new GameState
             {
                 Dungeon = new Dungeon(window.Width, window.Height),
