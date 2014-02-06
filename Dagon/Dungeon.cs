@@ -1,4 +1,7 @@
-﻿namespace Dagon
+﻿using System;
+using System.Collections.Generic;
+
+namespace Dagon
 {
     public enum TileKind
     {
@@ -23,7 +26,22 @@
         public Dungeon(int width, int height)
         {
             _tiles = new Tile[width, height];
-            CarveRoom(new Point(10, 10), new Point(20, 20));
+
+            var rooms = new List<Tuple<Point, Point>>();
+
+            var rng = new Random(2);
+            int nRooms = rng.Next(10, 30);
+            for (int i = 0; i < nRooms; i++)
+            {
+                int roomWidth = rng.Next(3, 6);
+                int roomHeight = rng.Next(3, 6);
+                int top = rng.Next(1, height - roomHeight);
+                int left = rng.Next(1, width - roomWidth);
+
+                var room = Tuple.Create(new Point(left, top), new Point(left + roomWidth, top + roomHeight));
+                rooms.Add(room);
+                CarveRoom(room.Item1, room.Item2);
+            }
         }
 
         public Tile this[int width, int height]

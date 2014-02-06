@@ -4,9 +4,16 @@
     {
         private static void Main(string[] args)
         {
-            var screen = new Window();
-            var dungeon = new Dungeon(screen.Width, screen.Height);
-            dungeon.Draw(screen);
+            var window = new Window();
+            var dungeon = new Dungeon(window.Width, window.Height);
+            dungeon.Draw(window);
+            var player = new Player {Position = new Point(15, 15)};
+            player.Draw(window);
+
+            // MUHAHAHAHAHA
+            for (;;)
+            {
+            }
         }
     }
 }
