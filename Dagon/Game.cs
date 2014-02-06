@@ -5,9 +5,14 @@ namespace Dagon
 {
     public class Game
     {
-        public Game()
+        public Game(Window window)
         {
-            State = new GameState();
+            State = new GameState
+            {
+                Dungeon = new Dungeon(window.Width, window.Height),
+                Monsters = new List<Monster>(),
+            };
+            State.Previous = State; // loopback
         }
 
         public Player Player { get; set; }
