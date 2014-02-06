@@ -12,7 +12,7 @@
 
         public static implicit operator char(Tile tile)
         {
-            return tile.Kind == TileKind.Wall ? '#' : '.';
+            return tile.Kind == TileKind.Wall ? '#' : '·';
         }
     }
 
@@ -46,13 +46,13 @@
             get { return _tiles.GetLength(1); }
         }
 
-        public void Draw(Screen screen)
+        public void Draw(Window window)
         {
             for (int i = 0; i < Width; ++i)
             {
                 for (int j = 0; j < Height; j++)
                 {
-                    screen.Set(new Point(i, j), _tiles[i, j]);
+                    window.Set(new Point(i, j), _tiles[i, j]);
                 }
             }
         }

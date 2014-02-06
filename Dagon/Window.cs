@@ -2,7 +2,7 @@
 
 namespace Dagon
 {
-    public sealed class Screen
+    public sealed class Window
     {
         public int Width
         {
