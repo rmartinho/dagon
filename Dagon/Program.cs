@@ -8,6 +8,8 @@
 
             var game = new Game(window);
 
+            game.Draw(window);
+
             // MUHAHAHAHAHA
             for (;;)
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Dagon
@@ -7,21 +8,46 @@ namespace Dagon
     {
         public Game(Window window)
         {
+            var rng = new Random(0);
             State = new GameState
             {
                 Dungeon = new Dungeon(window.Width, window.Height),
-                Monsters = new List<Monster>(),
+                Monsters = Enumerable.Range(0, rng.Next(50))
+                    .Select(_=> new Monster{Position = new Point(rng.Next(1, window.Width - 1), rng.Next(1, window.Height - 1))})
+                    .ToList(),
             };
             State.Previous = State; // loopback
+
+            Player = new Player {Position = new Point(5, 5)};
+            Turns = 0;
         }
 
         public Player Player { get; set; }
+        public int Turns { get; set; }
 
         public GameState State { get; set; }
 
-        private void StartAction()
+        public void Draw(Window window)
+        {
+            State.Dungeon.Draw(window);
+            Player.Draw(window);
+            foreach (var monster in State.Monsters)
+            {
+                monster.Draw(window);
+            }
+        }
+
+        public void Checkpoint()
         {
             State = State.Clone();
+        }
+
+        public void Rewind(int n = 1)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                State = State.Previous;
+            }
         }
     }
 
