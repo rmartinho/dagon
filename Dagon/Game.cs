@@ -58,42 +58,35 @@ namespace Dagon
 
         public void MoveMonsters()
         {
-            var rng = new Random();
             Checkpoint();
             foreach (Monster monster in State.Monsters)
             {
-                int steps = rng.Next(0, 3);
-                int direction = rng.Next(0, 4);
-                switch (direction)
-                {
-                    // TODO move toward the player, not randomly
-                    case 0:
-                        monster.Position = new Point(monster.Position.X + steps, monster.Position.Y);
-                        break;
-                    case 1:
-                        monster.Position = new Point(monster.Position.X - steps, monster.Position.Y);
-                        break;
-                    case 2:
-                        monster.Position = new Point(monster.Position.X, monster.Position.Y + steps);
-                        break;
-                    case 3:
-                        monster.Position = new Point(monster.Position.X, monster.Position.Y - steps);
-                        break;
-                }
-                // TODO not fall into walls
+                var dx = Player.Position.X - monster.Position.X;
+                var dy = Player.Position.Y - monster.Position.Y;
 
-                CheckMonsterStates();
+                if (Math.Abs(dx) < Math.Abs(dy))
+                {
+                    // move x
+                    monster.Position = new Point(monster.Position.X + Math.Sign(dx), monster.Position.Y);
+                }
+                else
+                {
+                    // move y
+                    monster.Position = new Point(monster.Position.X, monster.Position.Y + +Math.Sign(dy));
+                }
             }
+
+            CheckMonsterStates();
         }
 
         private void CheckMonsterStates()
         {
-            IEnumerable<Monster> deadMonsters = from m1 in State.Monsters
+            IEnumerable<Monster> deadMonsters = (from m1 in State.Monsters
                 from m2 in State.Monsters
                 where m1 != m2 && m1.Position.X == m2.Position.X && m1.Position.Y == m2.Position.Y
-                select m1;
+                select m1).ToList();
 
-            foreach (var monster in deadMonsters)
+            foreach (Monster monster in deadMonsters)
             {
                 State.Monsters.Remove(monster);
             }
