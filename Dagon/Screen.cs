@@ -1,6 +1,6 @@
 ﻿namespace Dagon
 {
-    public sealed class Praevelo
+    public sealed class Screen
     {
          
     }
