@@ -66,6 +66,7 @@ namespace Dagon
                 int direction = rng.Next(0, 4);
                 switch (direction)
                 {
+                    // TODO move toward the player, not randomly
                     case 0:
                         monster.Position = new Point(monster.Position.X + steps, monster.Position.Y);
                         break;
@@ -80,6 +81,25 @@ namespace Dagon
                         break;
                 }
                 // TODO not fall into walls
+
+                CheckMonsterStates();
+            }
+        }
+
+        private void CheckMonsterStates()
+        {
+            IEnumerable<Monster> deadMonsters = from m1 in State.Monsters
+                from m2 in State.Monsters
+                where m1 != m2 && m1.Position.X == m2.Position.X && m1.Position.Y == m2.Position.Y
+                select m1;
+
+            foreach (var monster in deadMonsters)
+            {
+                State.Monsters.Remove(monster);
+            }
+            if (State.Monsters.Any(m => m.Position.X == Player.Position.X && m.Position.Y == Player.Position.Y))
+            {
+                throw new YouLost();
             }
         }
 
@@ -87,6 +107,10 @@ namespace Dagon
         {
             Player.Position = new Point(Player.Position.X + dx, Player.Position.Y + dy);
         }
+    }
+
+    internal class YouLost : Exception
+    {
     }
 
     public class GameState
