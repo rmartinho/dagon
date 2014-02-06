@@ -1,9 +1,9 @@
 ﻿namespace Dagon
 {
-    public sealed class Player
+    public sealed class Player : IDrawable
     {
-        public int Health { get; set; }
         public Point Position { get; set; }
+        public int Turns { get; set; }
 
         public void Draw(Window window)
         {

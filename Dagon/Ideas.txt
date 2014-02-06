@@ -1,7 +1,8 @@
-﻿Standard fare roguelike with a time travelling mechanic. Single player, randomly-generated content, no saving.
+﻿Clone of robots.
 
 All previous state information is saved except for player information.
 
-The player has a time travelling ability that I won't bother balancing because fun. Said ability allows the player to move back into any previous state.
+The player has a time travelling ability that I won't bother balancing because fun.
+Said ability allows the player to move back into any previous state.
 
 If enough time left, forked timestreams?
