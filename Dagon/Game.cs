@@ -12,7 +12,7 @@ namespace Dagon
             State = new GameState
             {
                 Dungeon = new Dungeon(window.Width, window.Height),
-                Monsters = Enumerable.Range(0, rng.Next(50))
+                Monsters = Enumerable.Range(0, 1)//rng.Next(50))
                     .Select(
                         _ =>
                             new Monster
@@ -61,19 +61,10 @@ namespace Dagon
             Checkpoint();
             foreach (Monster monster in State.Monsters)
             {
-                var dx = Player.Position.X - monster.Position.X;
-                var dy = Player.Position.Y - monster.Position.Y;
+                int dx = Player.Position.X - monster.Position.X;
+                int dy = Player.Position.Y - monster.Position.Y;
 
-                if (Math.Abs(dx) < Math.Abs(dy))
-                {
-                    // move x
-                    monster.Position = new Point(monster.Position.X + Math.Sign(dx), monster.Position.Y);
-                }
-                else
-                {
-                    // move y
-                    monster.Position = new Point(monster.Position.X, monster.Position.Y + +Math.Sign(dy));
-                }
+                monster.Position = new Point(monster.Position.X + Math.Sign(dx), monster.Position.Y + Math.Sign(dy));
             }
 
             CheckMonsterStates();
