@@ -14,6 +14,7 @@ namespace Dagon
 
             var sw = Stopwatch.StartNew();
             var lastTick = sw.ElapsedMilliseconds;
+            var lastFuelTick = sw.ElapsedMilliseconds;
             while(true)
             {
                 game.Draw(window);
@@ -23,6 +24,11 @@ namespace Dagon
                     game.MoveMonsters();
                     lastTick = sw.ElapsedMilliseconds;
                     continue;
+                }
+                if (sw.ElapsedMilliseconds > lastFuelTick + 5000)
+                {
+                    game.Player.Fuel++;
+                    lastFuelTick = sw.ElapsedMilliseconds;
                 }
                 if (Console.KeyAvailable)
                 {

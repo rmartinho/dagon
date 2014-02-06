@@ -23,7 +23,7 @@ namespace Dagon
             };
             State.Previous = State; // loopback
 
-            Player = new Player {Position = new Point(5, 5)};
+            Player = new Player {Position = new Point(5, 5), Fuel = 10};
             Turns = 0;
         }
 
@@ -50,10 +50,12 @@ namespace Dagon
 
         public void Rewind(int n = 1)
         {
-            for (int i = 0; i < n; i++)
+            int moves = Math.Min(n, Player.Fuel);
+            for (int i = 0; i < moves; i++)
             {
                 State = State.Previous;
             }
+            Player.Fuel -= moves;
         }
 
         public void MoveMonsters()
