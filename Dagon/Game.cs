@@ -12,7 +12,7 @@ namespace Dagon
             State = new GameState
             {
                 Dungeon = new Dungeon(window.Width, window.Height),
-                Monsters = Enumerable.Range(0, 1)//rng.Next(50))
+                Monsters = Enumerable.Range(0, rng.Next(50))
                     .Select(
                         _ =>
                             new Monster
