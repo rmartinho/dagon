@@ -30,7 +30,7 @@ namespace Dagon
                     game.Player.Fuel++;
                     lastFuelTick = sw.ElapsedMilliseconds;
                 }
-                if (Console.KeyAvailable)
+                while (Console.KeyAvailable)
                 {
                     var k = Console.ReadKey(true);
                     switch (k.KeyChar)
