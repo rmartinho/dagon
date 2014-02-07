@@ -11,7 +11,7 @@ namespace Dagon
 
         public int Height
         {
-            get { return Console.WindowHeight; }
+            get { return Console.WindowHeight-1; }
         }
 
         public void Set(Point at, char c, ConsoleColor colour)

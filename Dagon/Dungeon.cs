@@ -14,7 +14,7 @@ namespace Dagon
 
         public static implicit operator char(Tile tile)
         {
-            return tile.Kind == TileKind.Wall ? '#' : '·';
+            return tile.Kind == TileKind.Wall ? '#' : ' ';
         }
     }
 
@@ -68,7 +68,8 @@ namespace Dagon
             {
                 for (int j = 0; j < Height; j++)
                 {
-                    window.Set(new Point(i, j), _tiles[i, j], ConsoleColor.White);
+                    if (_tiles[i, j].Kind != TileKind.Open)
+                        window.Set(new Point(i, j), _tiles[i, j], ConsoleColor.White);
                 }
             }
         }

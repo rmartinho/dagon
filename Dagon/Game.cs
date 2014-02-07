@@ -6,8 +6,11 @@ namespace Dagon
 {
     public class Game
     {
+        private readonly Window _window;
+
         public Game(Window window)
         {
+            _window = window;
             var rng = new Random();
             State = new GameState
             {
@@ -34,7 +37,6 @@ namespace Dagon
 
         public void Draw(Window window)
         {
-            //window.Clear();
             State.Dungeon.Draw(window);
             Player.Draw(window);
             foreach (Monster monster in State.Monsters)
@@ -50,6 +52,7 @@ namespace Dagon
 
         public void Rewind(int n = 1)
         {
+            _window.Clear();
             int moves = Math.Min(n, Player.Fuel);
             for (int i = 0; i < moves; i++)
             {
@@ -66,6 +69,7 @@ namespace Dagon
                 int dx = Player.Position.X - monster.Position.X;
                 int dy = Player.Position.Y - monster.Position.Y;
 
+                _window.Set(monster.Position, ' ', ConsoleColor.White);
                 monster.Position = new Point(monster.Position.X + Math.Sign(dx), monster.Position.Y + Math.Sign(dy));
             }
 
@@ -91,6 +95,7 @@ namespace Dagon
 
         public void MovePlayer(int dx, int dy)
         {
+            _window.Set(Player.Position, ' ', ConsoleColor.White);
             Player.Position = new Point(Player.Position.X + dx, Player.Position.Y + dy);
         }
     }
@@ -117,7 +122,7 @@ namespace Dagon
         }
     }
 
-    public class Monster : IDrawable
+    public class Monster : IDrawable, IPositionable
     {
         public Point Position { get; set; }
 
